@@ -2,12 +2,12 @@ name: Deploy Static Website to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]    # runs when you push to main
+    branches: [ "main" ]
 
 permissions:
   contents: read
-  pages: write              # permission to deploy to pages
-  id-token: write           # permission to verify deployment
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -16,25 +16,21 @@ jobs:
 
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}   # live URL
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
 
-      # Step 1 - Download your code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2 - Setup GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # Step 3 - Upload your website files
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'         # uploads everything in root folder
+          path: './Netflix_Clone'   # ← point to subfolder!
 
-      # Step 4 - Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
